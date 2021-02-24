@@ -126,9 +126,11 @@ export class ZapOracle {
             if (err) {
                 throw err;
             }
+            console.log("an event happens")
+            console.log(event)
             this.handleQuery(event);
         });
-
+//0x550481e23b3718c8d298de3cab59bf24d51573b38e48c11780cd64d1c99852a9
     }
 
     /**
@@ -143,10 +145,12 @@ export class ZapOracle {
         const accounts: string[] = await this.web3.eth.getAccounts();
         if (accounts.length == 0) throw ('Unable to find an account in the current web3 provider, check your Config variables');
         const owner: string = accounts[0];
+        console.log(await this.web3.eth.net.getId())
         this.oracle = new ZapProvider(owner, {
             networkId: (await this.web3.eth.net.getId()).toString(),
             networkProvider: this.web3.currentProvider
         });
+        console.log(this.oracle)
         this.zapToken = new ZapToken({
             networkId: (await this.web3.eth.net.getId()).toString(),
             networkProvider: this.web3.currentProvider
